@@ -1,0 +1,83 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--primary);
+  --font-display: Merriweather, Georgia, serif;
+  --font-sans: Inter, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.9rem;
+  /* Earthy Kisaan Setu palette */
+  --background: oklch(0.955 0.021 88.5); /* #F5EFE3 */
+  --foreground: oklch(0.33 0.038 55); /* #4A3728 */
+  --card: oklch(0.918 0.028 85); /* #EDE4D3 */
+  --card-foreground: oklch(0.33 0.038 55);
+  --primary: oklch(0.635 0.075 117); /* #8A9A5B sage */
+  --primary-foreground: oklch(0.985 0.01 90);
+  --secondary: oklch(0.43 0.045 58); /* #6B4F3B */
+  --secondary-foreground: oklch(0.97 0.015 90);
+  --muted: oklch(0.9 0.025 85);
+  --muted-foreground: oklch(0.6 0.025 75); /* #8A7F6E */
+  --accent: oklch(0.79 0.14 82); /* warm grain gold */
+  --accent-foreground: oklch(0.33 0.038 55);
+  --destructive: oklch(0.53 0.16 28);
+  --destructive-foreground: oklch(0.98 0.01 90);
+  --border: oklch(0.845 0.03 85); /* #D8CBB0 */
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@utility tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@utility surface-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 1px 2px oklch(0.33 0.038 55 / 0.06);
+}
