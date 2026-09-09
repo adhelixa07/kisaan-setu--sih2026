@@ -21,6 +21,8 @@ import adminRoutes from './routes/adminRoutes.js';
 import buyerRoutes from './routes/buyerRoutes.js';
 import assistantRoutes from './routes/assistantRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import featureRoutes from './routes/featureRoutes.js';
+import { webhook } from './controllers/paymentController.js';
 
 dotenv.config();
 
@@ -36,6 +38,17 @@ export function createServer() {
     origin: process.env.FRONTEND_ORIGIN || '*',
     credentials: true,
   }));
+
+  const paymentRateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 50,
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  app.post('/api/payments/webhook', express.raw({ type: 'application/json' }), webhook);
+  app.use('/api/payments', paymentRateLimiter, paymentRoutes);
+
   app.use(express.json({ limit: '2mb' }));
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
@@ -62,6 +75,7 @@ export function createServer() {
   app.use('/api/payments', paymentRoutes);
   app.use('/api/admin', adminRoutes);
   app.use('/api/buyer', buyerRoutes);
+  app.use('/api', featureRoutes);
 
   app.get('/api/health', (_, res) => {
     res.json({ success: true, data: { ok: true } });
